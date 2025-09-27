@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+    <info>
+        <name>aws-codebuild-plugin</name>
+        <display-name>AWS CodeBuild</display-name>
+        <version>@Plugin_Version@</version>
+        <description>Build runner for building projects on AWS CodeBuild</description>
+        <download-url>https://github.com/JetBrains/teamcity-aws-codebuild-plugin</download-url>
+        <vendor>
+            <name>JetBrains, s.r.o.</name>
+            <url>https://www.jetbrains.com</url>
+        </vendor>
+    </info>
+    <deployment use-separate-classloader="true"/>
+</teamcity-plugin>

@@ -1,0 +1,19 @@
+
+
+apply plugin: 'com.github.rodm.teamcity-agent'
+
+dependencies {
+    compile project(':aws-codebuild-common')
+
+    testCompile "org.jetbrains.teamcity:tests-support:${teamcityVersion}"
+    // the dependencies can be removed since 10.0, see https://youtrack.jetbrains.com/issue/TW-44615
+    testRuntime files("${teamcityDir}/buildAgent/lib/common-impl.jar")
+}
+
+teamcity {
+    agent {
+        descriptor = project(':aws-codebuild-agent').file('teamcity-plugin.xml')
+    }
+
+    version = teamcityVersion
+}
