@@ -576,12 +576,6 @@ public class CodeBuildRunner extends AgentLifeCycleAdapter implements AgentBuild
       
       final String format = getBuildString(c) + " %s " + getBuildLink(c.codeBuildBuildId, c.params.get(AWSCommonParams.REGION_NAME_PARAM));
       final String status = codeBuildBuild.getBuildStatus();
-      
-      // Debug logging for build status in monitoring loop
-      if (Boolean.parseBoolean(c.params.get(CodeBuildConstants.DEBUG_LOGS_PARAM))) {
-        build.getBuildLogger().message("CloudWatch Debug: Build completed with status: " + status);
-      }
-      
       if (isSucceeded(status)) {
         log(build, (forContext(c, createTextMessage(String.format(format, "succeeded")))));
       } else {
@@ -711,26 +705,12 @@ public class CodeBuildRunner extends AgentLifeCycleAdapter implements AgentBuild
     final Build codeBuildBuild = builds.iterator().next();
     final String status = codeBuildBuild.getBuildStatus();
     
-    // Debug logging for build status
-    if (Boolean.parseBoolean(c.params.get(CodeBuildConstants.DEBUG_LOGS_PARAM))) {
-      build.getBuildLogger().message("CloudWatch Debug: Final build status: " + status);
-    }
-    
     if (isSucceeded(status)) {
-      if (Boolean.parseBoolean(c.params.get(CodeBuildConstants.DEBUG_LOGS_PARAM))) {
-        build.getBuildLogger().message("CloudWatch Debug: Build succeeded, returning FINISHED_SUCCESS");
-      }
       return BuildFinishedStatus.FINISHED_SUCCESS;
     } else if (isFailed(status)) {
-      if (Boolean.parseBoolean(c.params.get(CodeBuildConstants.DEBUG_LOGS_PARAM))) {
-        build.getBuildLogger().message("CloudWatch Debug: Build failed, returning FINISHED_WITH_PROBLEMS");
-      }
       return BuildFinishedStatus.FINISHED_WITH_PROBLEMS;
     } else {
       // For other statuses like TIMED_OUT, STOPPED, etc.
-      if (Boolean.parseBoolean(c.params.get(CodeBuildConstants.DEBUG_LOGS_PARAM))) {
-        build.getBuildLogger().message("CloudWatch Debug: Build status '" + status + "' treated as failure, returning FINISHED_WITH_PROBLEMS");
-      }
       return BuildFinishedStatus.FINISHED_WITH_PROBLEMS;
     }
   }

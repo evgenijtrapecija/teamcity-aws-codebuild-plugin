@@ -93,10 +93,7 @@ public final class CodeBuildUtil {
   }
 
   public static boolean isFailed(@NotNull String status) {
-    return CodeBuildConstants.FAILED.equals(status) || 
-           "TIMED_OUT".equals(status) || 
-           "STOPPED".equals(status) || 
-           "CANCELLED".equals(status);
+    return CodeBuildConstants.FAILED.equals(status);
   }
 
   @NotNull
